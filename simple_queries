@@ -1,0 +1,4 @@
+curl -v -X GET "localhost:9200/_cluster/health"
+
+
+curl -v --header "Content-Type: application/json" --request GET --data '{"query": { "match_all": {} } }' http://localhost:9200/.kibana/_search
