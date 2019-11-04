@@ -74,3 +74,23 @@ PUT /products/_doc/101
 
 
 DELETE /products/_doc/101
+
+
+POST /products/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.in_stock++"
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+
+POST /products/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+curl --header "Content-Type: application/x-ndjson" --request POST http://localhost:9200/products/_bulk --data-binary "@resources/products-bulk.json"
