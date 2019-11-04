@@ -50,3 +50,27 @@ curl -v --header "Content-Type:application/json" --request POST --data '{ "scrip
     """
   }
 }
+
+#The upsert will run if document is absent, otherwise the script run
+POST /products/_update/101
+{
+  "script": {
+    "source": "ctx._source.in_stock++"
+  },
+  "upsert": {
+    "name": "Blender",
+    "price": 399,
+    "in_stock": 5
+  }
+}
+
+#Replace document
+PUT /products/_doc/101
+{
+  "name": "Blender",
+  "price": 399,
+  "in_stock": 5
+}
+
+
+DELETE /products/_doc/101
