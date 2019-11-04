@@ -1,0 +1,52 @@
+#Create a document and generate an Id
+curl -v --header "Content-Type:application/json" --request POST --data '{ "name": "Coffe Maker", "price": 64, "in_stock": 10 }'  http://localhost:9200/products/_doc
+
+#Put document defining ID
+curl -v --header "Content-Type:application/json" --request PUT --data '{ "name": "Toaster", "price": 49, "in_stock": 10 }'  http://localhost:9200/products/_doc/100i
+
+#Retrieve document by Id
+#Header and http verb are optional here
+curl -v --header "Content-Type:application/json" --request GET http://localhost:9200/products/_doc/100 | jq
+
+#Update only one field
+curl -v --header "Content-Type:application/json" --request POST --data '{ "doc": { "in_stock": 3 } }'  http://localhost:9200/products/_update/100
+
+
+curl -v --header "Content-Type:application/json" --request POST --data '{ "script": { "source": "ctx._source.in_stock--" } }'  http://localhost:9200/products/_update/100
+
+curl -v --header "Content-Type:application/json" --request POST --data '{ "script": { "source": "ctx._source.in_stock = 10" } }'  http://localhost:9200/products/_update/100 
+
+curl -v --header "Content-Type:application/json" --request POST --data '{ "script": { "source": "ctx._source.in_stock -= params.quantity", "params": { "quantity": 4 } } }'  http://localhost:9200/products/_update/100
+
+#More examples of script
+{
+  "script": {
+    "source": """
+      if (ctx._source.in_stock == 0) {
+        ctx.op = 'noop';
+      }
+      ctx._source.in_stock--;
+    """
+  }
+}
+
+{
+  "script": {
+    "source": """
+      if (ctx._source.in_stock > 0) {
+        ctx._source.in_stock--;
+      }
+    """
+  }
+}
+
+{
+  "script": {
+    "source": """
+      if (ctx._source.in_stock <= 1) {
+        ctx.op = 'delete';
+      }
+      ctx._source.in_stock--;
+    """
+  }
+}

@@ -1,0 +1,5 @@
+curl -v --request PUT http://localhost:9200/pages
+curl -v --request DELETE http://localhost:9200/pages
+
+#Create with simple configs
+curl -v --header "Content-Type:application/json" --request PUT --data '{ "settings": { "number_of_shards": 2, "number_of_replicas": 2 } }'  http://localhost:9200/products
