@@ -1,0 +1,57 @@
+curl --header "Content-Type: application/json" --request PUT http://localhost:9200/products/_mapping --data '{ "properties": { "discount": { "type": "double" } } }'
+
+PUT /products/{type}/_mapping
+{
+  "properties": {
+    "discount": {
+      "type: : "double"
+    }
+  }
+}
+
+
+PUT /product
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "in_stock": {
+        "type": "integer"
+      },
+      "is_active": {
+        "type": "boolean"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "sold": {
+        "type": "long"
+      }
+    }
+  }
+}
+
+PUT /product/_mapping
+{
+    "properties": {
+      "description": {
+        "type": "text"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+           "keyword": {
+             "type": "keyword"
+           }
+         }
+      },
+      "tags": {
+        "type": "text",
+        "fields": {
+           "keyword": {
+             "type": "keyword"
+           }
+         }
+      }
+    }
+}
