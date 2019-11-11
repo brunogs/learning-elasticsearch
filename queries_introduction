@@ -1,0 +1,17 @@
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
+
+GET /product/{type}/_search?q=tags:Test AND name:Tuna
+
+GET /product/default/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+
+GET /product/default/_search?explain
+{
+  ...
+}
