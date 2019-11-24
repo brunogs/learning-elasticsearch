@@ -15,3 +15,38 @@ GET /product/default/_search?explain
 {
   ...
 }
+
+
+GET /products/_search
+{
+  "query": {
+    "ids": {
+       "values": [1, 2, 3]
+     }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
+    "range": {
+       "in_stock": {
+       	  "gte": 1,
+       	  "lte": 5
+       }
+     }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
+    "range": {
+       "created": {
+       	  "gte": "01-01-2010",
+       	  "lte": "31-12-2010",
+       	  "format": "dd-MM-yyyy"
+       }
+     }
+  }
+}
