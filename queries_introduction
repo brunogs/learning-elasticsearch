@@ -50,3 +50,30 @@ GET /products/_search
      }
   }
 }
+
+GET /products/_search
+{
+  "query": {
+    "exists": {
+    	"field": "tags"
+    }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
+    "prefix": {
+    	"tags.keyword": "Vege"
+    }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
+    "wildcard": {
+    	"tags.keyword": "Vege*ble"
+    }
+  }
+}
