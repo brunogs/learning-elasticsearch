@@ -1,0 +1,67 @@
+
+GET /product/default/_search
+{
+  "query": {
+    "range": {
+       "sold": {
+       	  "lt": 10
+       }
+     }
+  }
+}
+
+
+GET /product/default/_search
+{
+  "query": {
+    "range": {
+       "sold": {
+       	  "lt": 30,
+       	  "gte": 10
+       }
+     }
+  }
+}
+
+
+GET /product/default/_search
+{
+  "query": {
+    "term": {
+        "tags.keyword": "Meat"
+    }
+  }
+}
+
+
+GET /product/default/_search
+{
+  "query": {
+    "terms": {
+    	"name.keyword": [
+    		"Tomato", 
+    		"Paste"
+    	]
+    }
+  }
+}
+
+
+GET /product/default/_search
+{
+  "query": {
+    "wildcard": {
+    	"name.keyword": "*Past? *"
+    }
+  }
+}
+
+GET /product/default/_search
+{
+  "query": {
+    "regexp": {
+    	"name.keyword": ".*[0-9]+"
+    }
+  }
+}
+
